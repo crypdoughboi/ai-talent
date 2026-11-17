@@ -1,7 +1,8 @@
 import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return clsx(inputs);
+  return twMerge(clsx(inputs));
 }
 
 const ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyz";
@@ -97,4 +98,10 @@ export function safeUrl(input: string | null | undefined): string | null {
 
 export function clamp(n: number, min: number, max: number) {
   return Math.min(max, Math.max(min, n));
+}
+
+export function formatBytes(n: number) {
+  if (n < 1024) return `${n} B`;
+  if (n < 1024 * 1024) return `${Math.round(n / 1024)} KB`;
+  return `${(n / 1024 / 1024).toFixed(1)} MB`;
 }

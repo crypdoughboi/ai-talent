@@ -8,7 +8,7 @@ import { getEngagementForUser } from "@/lib/access";
 import { db, schema } from "@/lib/db";
 import { config } from "@/lib/config";
 import { reconcileCheckoutSession } from "@/lib/payments";
-import { formatDate, formatMoney } from "@/lib/utils";
+import { formatBytes, formatDate, formatMoney } from "@/lib/utils";
 import { Avatar } from "@/components/brand";
 import { Badge, Card, Notice, Progress, Section, Textarea, type Tone } from "@/components/ui";
 import { SubmitButton } from "@/components/form";
@@ -318,7 +318,7 @@ export default async function ProjectPage({ params, searchParams }: { params: Pr
               <h2 className="font-semibold">Messages</h2>
               <Link href={`/messages/${e.threadId}`} className="text-[12.5px] text-muted hover:text-ink">Full view</Link>
             </div>
-            <div className="flex-1 overflow-y-auto px-4 py-3">
+            <div className="flex flex-1 flex-col-reverse overflow-y-auto px-4 py-3">
               <ThreadMessages threadId={e.threadId} viewerId={user.id} names={names} />
             </div>
             {side !== "admin" && (
@@ -338,7 +338,7 @@ export default async function ProjectPage({ params, searchParams }: { params: Pr
                     <FileText className="size-4 shrink-0 text-muted" />
                     <div className="min-w-0 flex-1">
                       <div className="truncate text-[13px] font-medium">{f.name}</div>
-                      <div className="text-[11.5px] text-muted">{(f.size / 1024).toFixed(0)} KB · {names[f.ownerId]?.split(" ")[0] ?? "Member"} · {formatDate(f.createdAt)}</div>
+                      <div className="text-[11.5px] text-muted">{formatBytes(f.size)} · {names[f.ownerId]?.split(" ")[0] ?? "Member"} · {formatDate(f.createdAt)}</div>
                     </div>
                     <a href={`/api/files/${f.id}?download=1`} className="rounded-lg p-1.5 text-muted hover:bg-paper hover:text-ink" aria-label={`Download ${f.name}`}><Download className="size-4" /></a>
                     {f.ownerId === user.id && (

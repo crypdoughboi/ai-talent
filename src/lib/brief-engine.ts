@@ -128,10 +128,6 @@ function sizeMultiplier(teamSize: number | null) {
 
 const roundTo = (n: number, step: number) => Math.max(step, Math.round(n / step) * step);
 
-function titleCase(s: string) {
-  return s.charAt(0).toUpperCase() + s.slice(1);
-}
-
 /** Deterministic brief generation. Always available, no external calls. */
 export function generateRulesBrief(problemStatement: string): GeneratedBrief {
   const text = problemStatement.toLowerCase();
@@ -166,8 +162,8 @@ export function generateRulesBrief(problemStatement: string): GeneratedBrief {
     hoursSavedHigh = Math.max(hoursSavedLow, Math.round(signals.hoursPerWeek * primary.automationShare[1]));
   }
 
-  const labels = playbooks.map((p) => p.label.toLowerCase());
-  const title = playbooks[0] === AUDIT_PLAYBOOK ? "AI workflow audit & first automation" : titleCase(`${labels.join(" + ")} with AI`);
+  const lower = (l: string) => l.charAt(0).toLowerCase() + l.slice(1);
+  const title = playbooks[0] === AUDIT_PLAYBOOK ? "AI workflow audit & first automation" : `${primary.label}${secondary ? ` and ${lower(secondary.label)}` : ""} with AI`;
 
   const contextBits = [
     signals.teamSize ? `a ${signals.teamSize}-person team` : null,

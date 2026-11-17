@@ -265,7 +265,7 @@ export default async function OperatorProfilePage({ params }: Params) {
         </div>
 
         <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">
-          <Card className="p-5">
+          <Card className="scroll-mt-24 p-5" id="hire">
             <div className="flex items-end justify-between">
               <div>
                 <div className="eyebrow">Rate</div>
@@ -355,6 +355,19 @@ export default async function OperatorProfilePage({ params }: Params) {
           </Card>
         </aside>
       </Section>
+
+      {!isOwner && <div className="h-16 lg:hidden" aria-hidden />}
+      {!isOwner && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-paper/90 px-4 py-3 backdrop-blur-xl lg:hidden">
+          <div className="flex items-center justify-between gap-3">
+            <div className="min-w-0">
+              <div className="truncate text-[13px] font-semibold">{op.name}</div>
+              <div className="tabular text-[12px] text-muted">{op.hourlyRateCents ? `${formatMoney(op.hourlyRateCents)}/hr` : "By project"}{op.minProjectCents ? ` · from ${formatMoney(op.minProjectCents)}` : ""}</div>
+            </div>
+            <ButtonLink href={op.isSample ? "/match" : "#hire"} size="sm">{op.isSample ? "Find a real operator" : "Request a proposal"}</ButtonLink>
+          </div>
+        </div>
+      )}
     </>
   );
 }

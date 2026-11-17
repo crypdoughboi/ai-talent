@@ -118,7 +118,7 @@ export default async function HomePage() {
       {/* ───────── Functions ───────── */}
       <Section className="pt-28">
         <SectionHeading eyebrow="Browse by function" title="Every team has hours to win back" />
-        <div className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3">
+        <div className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3 [&>*:last-child:nth-child(odd)]:col-span-2 sm:[&>*:last-child:nth-child(odd)]:col-span-1">
           {FUNCTIONS.map((f) => (
             <Link key={f.slug} href={`/operators?function=${f.slug}`} className="group flex flex-col justify-between gap-6 bg-card p-5 transition-colors hover:bg-paper sm:p-6">
               <div className="flex items-start justify-between">
